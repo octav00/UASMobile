@@ -10,14 +10,14 @@
     tools:context=".Register">
 
     <TextView
-        android:textColor="#424242"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
         android:gravity="center"
+        android:text="Register Here"
+        android:textAllCaps="false"
+        android:textColor="#424242"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="Register Here" />
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/r_name"
