@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "576641603562",
+    "project_id": "uasmobile-d872e",
+    "storage_bucket": "uasmobile-d872e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576641603562:android:9b4387ae0abc0eb5510493",
+        "android_client_info": {
+          "package_name": "id.ac.umn.uasmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "576641603562-uo5rn7gg6a0i6mvjfp8n8povnnhofk9m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmccwWOOoHCZqyYK103IkjNOHRzw1Jdmw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576641603562-uo5rn7gg6a0i6mvjfp8n8povnnhofk9m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
