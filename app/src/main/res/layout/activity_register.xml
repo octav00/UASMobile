@@ -10,14 +10,14 @@
     tools:context=".Register">
 
     <TextView
+        android:textColor="#424242"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="true"
         android:gravity="center"
-        android:text="Register Here"
-        android:textAllCaps="false"
-        android:textColor="#424242"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="Register Here"/>
 
     <EditText
         android:id="@+id/r_name"
@@ -27,29 +27,32 @@
         android:layout_marginEnd="20dp"
         android:hint="Name"
         android:inputType="text"
+        android:importantForAutofill="no"
         android:maxLines="1"
         android:paddingStart="20dp"
         android:paddingEnd="0dp"
         android:textSize="16sp"
         android:background="@drawable/round_back_white_10"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"/>
 
     <EditText
+        android:importantForAutofill="no"
         android:id="@+id/r_mobile"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:hint="Phone Number"
+        android:hint="Mobile Number"
         android:inputType="number"
         android:maxLines="1"
         android:paddingStart="20dp"
         android:paddingEnd="0dp"
         android:textSize="16sp"
         android:background="@drawable/round_back_white_10"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"/>
 
     <EditText
+        android:importantForAutofill="no"
         android:id="@+id/r_email"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
@@ -62,7 +65,7 @@
         android:paddingEnd="0dp"
         android:textSize="16sp"
         android:background="@drawable/round_back_white_10"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/r_registerBtn"
@@ -74,6 +77,6 @@
         android:text="Register now"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
-        android:background="@drawable/round_back_theme_1000" />
+        android:background="@drawable/round_back_theme_1000"/>
 
 </LinearLayout>
