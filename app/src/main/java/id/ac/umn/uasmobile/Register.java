@@ -26,7 +26,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         final EditText name = findViewById(R.id.r_name);
-        final EditText mobile = findViewById(R.id.r_mobile);
+        final EditText password = findViewById(R.id.r_password);
         final EditText email = findViewById(R.id.r_email);
         final AppCompatButton registerBtn = findViewById(R.id.r_registerBtn);
 
@@ -35,15 +35,15 @@ public class Register extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
 
         // check if user already logged in
-        if(!MemoryData.getData(this).isEmpty()){
-
-            Intent intent = new Intent(Register.this, MainActivity.class);
-            intent.putExtra("mobile", MemoryData.getData(this));
-            intent.putExtra("name", MemoryData.getName(this));
-            intent.putExtra("email", "");
-            startActivity(intent);
-            finish();
-        }
+//        if(!MemoryData.getData(this).isEmpty()){
+//
+//            Intent intent = new Intent(Register.this, MainActivity.class);
+//            intent.putExtra("email", MemoryData.getData(this));
+//            intent.putExtra("name", MemoryData.getName(this));
+//            intent.putExtra("password", "");
+//            startActivity(intent);
+//            finish();
+//        }
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,10 +52,10 @@ public class Register extends AppCompatActivity {
                 progressDialog.show();
 
                 final String nameTxt = name.getText().toString();
-                final String mobileTxt = mobile.getText().toString();
+                final String passwordTxt = password.getText().toString();
                 final String emailTxt = email.getText().toString();
 
-                if(nameTxt.isEmpty() || mobileTxt.isEmpty() || emailTxt.isEmpty()){
+                if(nameTxt.isEmpty() || passwordTxt.isEmpty() || emailTxt.isEmpty()){
                     Toast.makeText(Register.this, "All Fields Required!!!", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
@@ -66,16 +66,16 @@ public class Register extends AppCompatActivity {
 
                             progressDialog.dismiss();
 
-                            if(snapshot.child("users").hasChild(mobileTxt)){
+                            if(snapshot.child("users").hasChild(passwordTxt)){
                                 Toast.makeText(Register.this, "Mobile already exists", Toast.LENGTH_SHORT).show();
                             }
                             else{
-                                databaseReference.child("users").child(mobileTxt).child("email").setValue(emailTxt);
-                                databaseReference.child("users").child(mobileTxt).child("name").setValue(nameTxt);
-                                databaseReference.child("users").child(mobileTxt).child("profile_pic").setValue("");
+                                databaseReference.child("users").child(passwordTxt).child("email").setValue(emailTxt);
+                                databaseReference.child("users").child(passwordTxt).child("name").setValue(nameTxt);
+                                databaseReference.child("users").child(passwordTxt).child("profile_pic").setValue("");
 
-                                // save mobile to memory
-                                MemoryData.saveData(mobileTxt, Register.this);
+                                // save password to memory
+                                MemoryData.saveData(passwordTxt, Register.this);
 
                                 // save name to memory
                                 MemoryData.saveName(nameTxt, Register.this);
@@ -83,7 +83,7 @@ public class Register extends AppCompatActivity {
                                 Toast.makeText(Register.this, "Success", Toast.LENGTH_SHORT).show();
 
                                 Intent intent = new Intent(Register.this, MainActivity.class);
-                                intent.putExtra("mobile", mobileTxt);
+                                intent.putExtra("password", passwordTxt);
                                 intent.putExtra("name", nameTxt);
                                 intent.putExtra("email", emailTxt);
                                 startActivity(intent);
