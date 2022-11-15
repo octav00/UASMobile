@@ -25,7 +25,7 @@ import id.ac.umn.uasmobile.messages.MessagesList;
 public class MainActivity extends AppCompatActivity {
     private final List<MessagesList> messagesLists = new ArrayList<>();
 
-    private String mobile;
+    private String password;
     private String email;
     private String name;
 
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         messagesRecyclerView = findViewById(R.id.messagesRecyclerView);
 
         // get intent data from Register.class activity
-        mobile = getIntent().getStringExtra("mobile");
+        password = getIntent().getStringExtra("password");
         email = getIntent().getStringExtra("email");
         name = getIntent().getStringExtra("name");
 
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                final String profilePicUrl = snapshot.child("users").child(mobile).child("profile_pic").getValue(String.class);
+                final String profilePicUrl = snapshot.child("users").child(password).child("profile_pic").getValue(String.class);
 
                 if(!profilePicUrl.isEmpty()){
                     // set profile pic to circle image view
@@ -98,11 +98,11 @@ public class MainActivity extends AppCompatActivity {
 
                 for(DataSnapshot dataSnapshot : snapshot.child("users").getChildren()){
 
-                    final String getMobile = dataSnapshot.getKey();
+                    final String getPassword = dataSnapshot.getKey();
 
                     dataSet = false;
 
-                    if(!getMobile.equals(mobile)){
+                    if(!getPassword.equals(password)){
 
                         final String getName = dataSnapshot.child("name").getValue(String.class);
                         final String getProfilePic = dataSnapshot.child("profile_pic").getValue(String.class);
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                                             final String getUserOne = dataSnapshot1.child("user_1").getValue(String.class);
                                             final String getUserTwo = dataSnapshot1.child("user_2").getValue(String.class);
 
-                                            if((getUserOne.equals(getMobile) && getUserTwo.equals(mobile)) || (getUserOne.equals(mobile) && getUserTwo.equals(getMobile))){
+                                            if((getUserOne.equals(getPassword) && getUserTwo.equals(password)) || (getUserOne.equals(password) && getUserTwo.equals(getPassword))){
 
                                                 for(DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()){
 
@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 if(!dataSet){
                                     dataSet = true;
-                                    MessagesList messagesList = new MessagesList(getName, getMobile, lastMessage, getProfilePic, unseenMessages, chatKey);
+                                    MessagesList messagesList = new MessagesList(getName, getPassword, lastMessage, getProfilePic, unseenMessages, chatKey);
                                     messagesLists.add(messagesList);
                                     messagesAdapter.updateData(messagesLists);
                                 }

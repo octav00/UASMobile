@@ -2,12 +2,12 @@ package id.ac.umn.uasmobile.messages;
 
 public class MessagesList {
 
-    private String name, mobile, lastMessage, profilePic, chatKey;
+    private String name, password, lastMessage, profilePic, chatKey;
     private int unseenMessages;
 
-    public MessagesList(String name, String mobile, String lastMessage, String profilePic, int unseenMessages, String chatKey) {
+    public MessagesList(String name, String password, String lastMessage, String profilePic, int unseenMessages, String chatKey) {
         this.name = name;
-        this.mobile = mobile;
+        this.password = password;
         this.lastMessage = lastMessage;
         this.profilePic = profilePic;
         this.unseenMessages = unseenMessages;
@@ -18,8 +18,8 @@ public class MessagesList {
         return name;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPassword() {
+        return password;
     }
 
     public String getLastMessage() {
