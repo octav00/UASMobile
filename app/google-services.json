@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "576641603562",
+    "firebase_url": "https://uasmobile-d872e-default-rtdb.firebaseio.com",
     "project_id": "uasmobile-d872e",
     "storage_bucket": "uasmobile-d872e.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "576641603562-eg00u2o759t3iothujmi7f4rjottq46h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "id.ac.umn.uasmobile",
+            "certificate_hash": "fc744cce9262133ab6cf1f53e8e2a5b4b5e9afbb"
+          }
+        },
         {
           "client_id": "576641603562-uo5rn7gg6a0i6mvjfp8n8povnnhofk9m.apps.googleusercontent.com",
           "client_type": 3
