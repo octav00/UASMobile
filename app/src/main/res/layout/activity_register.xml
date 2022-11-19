@@ -79,4 +79,16 @@
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
 
+    <TextView
+        android:id="@+id/r_loginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Already have an account? Login"
+        android:textAllCaps="false"
+        android:textColor="#424242"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
 </LinearLayout>
