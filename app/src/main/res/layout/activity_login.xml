@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,7 +20,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/r_email"
+        android:id="@+id/l_email"
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_marginStart="20dp"
@@ -36,7 +37,7 @@
 
     <EditText
         android:importantForAutofill="no"
-        android:id="@+id/r_password"
+        android:id="@+id/l_password"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_marginStart="20dp"
@@ -51,7 +52,7 @@
         android:layout_height="50dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/r_registerBtn"
+        android:id="@+id/l_loginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -60,6 +61,27 @@
         android:background="@drawable/round_back_theme_1000"
         android:text="Login"
         android:textColor="#FFFFFF"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Don't have an account?"
+        android:textAllCaps="false"
+        android:textColor="#424242"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/l_registerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Register Here"
+        android:textAllCaps="false"
+        android:textColor="#424242"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
 </LinearLayout>

@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://uasmobile-d872e-default-rtdb.firebaseio.com/");
 
     @Override
@@ -56,7 +56,7 @@ public class Register extends AppCompatActivity {
                 final String emailTxt = email.getText().toString();
 
                 if(nameTxt.isEmpty() || passwordTxt.isEmpty() || emailTxt.isEmpty()){
-                    Toast.makeText(Register.this, "All Fields Required!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "All Fields Required!!!", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                 }
                 else{
@@ -67,7 +67,7 @@ public class Register extends AppCompatActivity {
                             progressDialog.dismiss();
 
                             if(snapshot.child("users").hasChild(passwordTxt)){
-                                Toast.makeText(Register.this, "Mobile already exists", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Mobile already exists", Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 databaseReference.child("users").child(passwordTxt).child("email").setValue(emailTxt);
@@ -75,14 +75,14 @@ public class Register extends AppCompatActivity {
                                 databaseReference.child("users").child(passwordTxt).child("profile_pic").setValue("");
 
                                 // save password to memory
-                                MemoryData.saveData(passwordTxt, Register.this);
+                                MemoryData.saveData(passwordTxt, RegisterActivity.this);
 
                                 // save name to memory
-                                MemoryData.saveName(nameTxt, Register.this);
+                                MemoryData.saveName(nameTxt, RegisterActivity.this);
 
-                                Toast.makeText(Register.this, "Success", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Success", Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(Register.this, MainActivity.class);
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 intent.putExtra("password", passwordTxt);
                                 intent.putExtra("name", nameTxt);
                                 intent.putExtra("email", emailTxt);
