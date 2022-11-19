@@ -71,12 +71,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                final String profilePicUrl = snapshot.child("users").child(password).child("profile_pic").getValue(String.class);
-
-                if(!profilePicUrl.isEmpty()){
-                    // set profile pic to circle image view
-                    Picasso.get().load(profilePicUrl).into(userProfilePic);
-                }
+//                final String profilePicUrl = snapshot.child("users").child(password).child("profile_pic").getValue(String.class);
+//
+//                if(!profilePicUrl.isEmpty()){
+//                    // set profile pic to circle image view
+//                    Picasso.get().load(profilePicUrl).into(userProfilePic);
+//                }
 
                 progressDialog.dismiss();
             }

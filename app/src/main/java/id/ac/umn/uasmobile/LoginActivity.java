@@ -30,6 +30,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://uasmobile-d872e-default-rtdb.firebaseio.com/");
 
+    // If the user has already logged in, there is no need to log in repeatedly
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(!MemoryData.getData(this).equals("")){
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +76,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                 if(getEmail.equals(email)){
                                     progressDialog.dismiss();
+                                    MemoryData.saveData(getEmail, LoginActivity.this);
+                                    MemoryData.saveName(getName, LoginActivity.this);
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     intent.putExtra("email", email);
                                     intent.putExtra("password", password);
@@ -103,3 +115,88 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 }
+
+//public class LoginActivity extends AppCompatActivity {
+//
+//    private EditText emailEditText;
+//    private EditText passwordEditText;
+//    private AppCompatButton loginButton;
+//    private TextView registerButton;
+//
+//    private String email;
+//    private String password;
+//
+//    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://uasmobile-d872e-default-rtdb.firebaseio.com/");
+//
+//    // If the user has already logged in, there is no need to log in repeatedly
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if(!MemoryData.getData(LoginActivity.this).equals("")){
+//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//            finish();
+//        }
+//    }
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_login);
+//
+//        emailEditText = findViewById(R.id.l_email);
+//        passwordEditText = findViewById(R.id.l_password);
+//        loginButton = findViewById(R.id.l_loginBtn);
+//        registerButton = findViewById(R.id.l_registerBtn);
+//
+//        loginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                email = emailEditText.getText().toString();
+//                password = passwordEditText.getText().toString();
+//
+//                if(email.equals("") || password.equals("")){
+//                    Toast.makeText(LoginActivity.this, "Please fill in all the fields", Toast.LENGTH_SHORT).show();
+//                }else{
+//                    final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+//                    progressDialog.setMessage("Please wait...");
+//                    progressDialog.show();
+//
+//                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                            boolean found = false;
+//                            for(DataSnapshot dataSnapshot : snapshot.child("users").getChildren()){
+//                                String getEmail = dataSnapshot.child("email").getValue(String.class);
+//                                String getPassword = dataSnapshot.child("password").getValue(String.class);
+//                                String getName = dataSnapshot.child("name").getValue(String.class);
+//                                if(getEmail.equals(email) && getPassword.equals(password)){
+//                                    found = true;
+//                                    MemoryData.saveData(getEmail, LoginActivity.this);
+//                                    MemoryData.saveName(getName, LoginActivity.this);
+//                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                                    finish();
+//                                }
+//                            }
+//                            if(!found){
+//                                Toast.makeText(LoginActivity.this, "Email or password is incorrect", Toast.LENGTH_SHORT).show();
+//                            }
+//                            progressDialog.dismiss();
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//
+//        registerButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+//            }
+//        });
+//    }
+//}
