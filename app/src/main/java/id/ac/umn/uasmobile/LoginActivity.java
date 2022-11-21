@@ -20,84 +20,87 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText emailEditText;
-    private EditText passwordEditText;
-    private AppCompatButton loginButton;
-    private TextView registerButton;
-
-    private String email;
-    private String password;
-
-    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://uasmobile-d872e-default-rtdb.firebaseio.com/");
-
-    // If the user has already logged in, there is no need to log in repeatedly
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(!MemoryData.getData(this).equals("")){
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-        }
-    }
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://uasmobile-d872e-default-rtdb.firebaseio.com/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        emailEditText = findViewById(R.id.l_email);
-        passwordEditText = findViewById(R.id.l_password);
-        loginButton = findViewById(R.id.l_loginBtn);
-        registerButton = findViewById(R.id.l_registerBtn);
+        final EditText email = findViewById(R.id.l_email);
+        final EditText password = findViewById(R.id.l_password);
+        final TextView registerButton = findViewById(R.id.l_registerBtn);
+        final AppCompatButton loginBtn = findViewById(R.id.l_loginBtn);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+
+        // check if user already logged in
+        if(!MemoryData.getData(this).isEmpty()){
+
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("mobile", MemoryData.getData(this));
+            intent.putExtra("name", MemoryData.getName(this));
+            intent.putExtra("email", "");
+            startActivity(intent);
+            finish();
+        }
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                email = emailEditText.getText().toString();
-                password = passwordEditText.getText().toString();
+                progressDialog.show();
 
-                if(email.isEmpty() || password.isEmpty()){
-                    Toast.makeText(LoginActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                }else{
+                final String mobileTxt = email.getText().toString();
+                final String passwordTxt = password.getText().toString();
 
-                    ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-                    progressDialog.setCancelable(false);
-                    progressDialog.setMessage("Loading...");
-                    progressDialog.show();
+                if(mobileTxt.isEmpty() || passwordTxt.isEmpty()){
+                    Toast.makeText(LoginActivity.this, "All Fields Required!!!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+                else{
 
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                            if(snapshot.child("users").hasChild(password)){
-                                String getEmail = snapshot.child("users").child(password).child("email").getValue(String.class);
-                                String getName = snapshot.child("users").child(password).child("name").getValue(String.class);
+                            progressDialog.dismiss();
 
-                                if(getEmail.equals(email)){
-                                    progressDialog.dismiss();
-                                    MemoryData.saveData(getEmail, LoginActivity.this);
-                                    MemoryData.saveName(getName, LoginActivity.this);
+                            if(snapshot.child("users").hasChild(mobileTxt)){
+                                String emailTxt = snapshot.child("users").child(mobileTxt).child("email").getValue().toString();
+                                String nameTxt = snapshot.child("users").child(mobileTxt).child("name").getValue().toString();
+
+                                if(emailTxt.equals(passwordTxt)){
+                                    // save mobile to memory
+                                    MemoryData.saveData(mobileTxt, LoginActivity.this);
+
+                                    // save name to memory
+                                    MemoryData.saveName(nameTxt, LoginActivity.this);
+
+                                    Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    intent.putExtra("email", email);
-                                    intent.putExtra("password", password);
-                                    intent.putExtra("name", getName);
+                                    intent.putExtra("mobile", mobileTxt);
+                                    intent.putExtra("name", nameTxt);
+                                    intent.putExtra("email", emailTxt);
                                     startActivity(intent);
                                     finish();
-                                }else{
-                                    progressDialog.dismiss();
-                                    Toast.makeText(LoginActivity.this, "Email or password is incorrect", Toast.LENGTH_SHORT).show();
                                 }
-                            }else{
-                                progressDialog.dismiss();
-                                Toast.makeText(LoginActivity.this, "Email or password is incorrect", Toast.LENGTH_SHORT).show();
+                                else{
+                                    Toast.makeText(LoginActivity.this, "Email and Password not matched", Toast.LENGTH_SHORT).show();
+                                }
                             }
+                            else{
+                                Toast.makeText(LoginActivity.this, "Mobile not exists", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             progressDialog.dismiss();
-                            Toast.makeText(LoginActivity.this, "Email or password is incorrect", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
