@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@color/theme_color_8"
-    tools:context=".Register">
+    tools:context=".RegisterActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -67,17 +67,17 @@
         android:background="@drawable/round_back_white_10"
         android:layout_height="50dp"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/r_registerBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/round_back_theme_1000"
-        android:text="Register"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold" />
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/r_registerBtn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:background="@drawable/round_back_theme_1000"-->
+<!--        android:text="Register"-->
+<!--        android:textColor="#FFFFFF"-->
+<!--        android:textStyle="bold" />-->
 
     <TextView
         android:id="@+id/r_loginBtn"

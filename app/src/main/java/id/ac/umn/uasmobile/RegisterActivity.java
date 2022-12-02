@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText password = findViewById(R.id.r_password);
         final EditText email = findViewById(R.id.r_email);
         final TextView loginBtn = findViewById(R.id.r_loginBtn);
-        final AppCompatButton registerBtn = findViewById(R.id.r_registerBtn);
+        final AppCompatButton registerBtn = findViewById(R.id.l_registerBtn);
 
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
