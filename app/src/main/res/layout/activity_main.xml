@@ -1,51 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFFFFF"
+    android:background="@color/colorAccent"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/search_icon"
-            android:padding="6dp"
-            android:background="@drawable/round_back_light_10"/>
+        <include
+            android:id="@+id/main_page_toolbar"
+            layout="@layout/app_bar_layout"
+            >
+        </include>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/main_tabs"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Messages"
-            android:textColor="#424242"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
-            android:textSize="18sp"
-            />
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        </android.support.design.widget.TabLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/userProfilePic"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/user_icon"/>
-    </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_tabs_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/messagesRecyclerView"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBarLayout">
+    </android.support.v4.view.ViewPager>
 
-</LinearLayout>
+
+
+</RelativeLayout>
