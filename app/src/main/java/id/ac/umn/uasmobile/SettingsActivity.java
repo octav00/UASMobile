@@ -26,8 +26,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import com.theartofdev.edmodocropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+//import com.canhub.cropper.CropImage;
+//import com.canhub.cropper.CropImageActivity;
+//import com.canhub.cropper.CropImageView;
 
 import java.util.HashMap;
 
