@@ -19,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class RegisterActivity extends AppCompatActivity
 {
@@ -96,7 +96,8 @@ public class RegisterActivity extends AppCompatActivity
                         {
                             if (task.isSuccessful())
                             {
-                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
+//                                String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                                String deviceToken = String.valueOf(FirebaseMessaging.getInstance().getToken());
 
                                 String currentUserID = mAuth.getCurrentUser().getUid();
                                 RootRef.child("Users").child(currentUserID).setValue("");
