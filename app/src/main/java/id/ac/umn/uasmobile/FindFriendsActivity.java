@@ -1,5 +1,6 @@
 package id.ac.umn.uasmobile;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -63,7 +64,7 @@ public class FindFriendsActivity extends AppCompatActivity
         FirebaseRecyclerAdapter<Contacts, FindFriendViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Contacts, FindFriendViewHolder>(options) {
                     @Override
-                    protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, final int position, @NonNull Contacts model)
+                    protected void onBindViewHolder(@NonNull FindFriendViewHolder holder, @SuppressLint("RecyclerView") final int position, @NonNull Contacts model)
                     {
                         holder.userName.setText(model.getName());
                         holder.userStatus.setText(model.getStatus());
