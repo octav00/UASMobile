@@ -120,6 +120,7 @@
                 android:textAlignment="center"
                 android:textSize="17sp"
                 android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
                 />
 
             <Button
