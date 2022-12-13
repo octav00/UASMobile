@@ -35,6 +35,10 @@ public class TabsAccessorAdapter extends FragmentPagerAdapter
                 RequestsFragment requestsFragment = new RequestsFragment();
                 return requestsFragment;
 
+            case 4:
+                CameraFragment cameraFragment = new CameraFragment();
+                return cameraFragment;
+
             default:
                 return null;
         }
@@ -44,7 +48,7 @@ public class TabsAccessorAdapter extends FragmentPagerAdapter
     @Override
     public int getCount()
     {
-        return 4;
+        return 5;
     }
 
 
@@ -65,6 +69,9 @@ public class TabsAccessorAdapter extends FragmentPagerAdapter
 
             case 3:
                 return "Requests";
+
+            case 4:
+                return "Camera";
 
             default:
                 return null;
