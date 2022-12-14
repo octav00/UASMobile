@@ -1,137 +1,172 @@
 package id.ac.umn.uasmobile;
 
-import android.content.Context;
+import android.Manifest;
 import android.content.pm.PackageManager;
-import android.hardware.Camera;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import java.io.IOException;
+import com.github.florent37.camerafragment.listeners.CameraFragmentResultListener;
+import com.github.florent37.camerafragment.listeners.CameraFragmentStateAdapter;
+import com.github.florent37.camerafragment.listeners.CameraFragmentVideoRecordTextListener;
+import com.github.florent37.camerafragment.listeners.CameraFragmentVideoRecordedListener;
 
-public class CameraFragment extends Fragment implements SurfaceHolder.Callback {
+import java.io.File;
 
-    private Camera mCamera;
-    private SurfaceView mSurfaceView;
-    private SurfaceHolder mSurfaceHolder;
-    private boolean mPreviewRunning;
+public class CameraFragment extends Fragment {
+
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
+
+    public CameraFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_camera, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_camera, container, false);
+    }
 
-        mSurfaceView = (SurfaceView) view.findViewById(R.id.surface_camera);
-        mSurfaceHolder = mSurfaceView.getHolder();
-        mSurfaceHolder.addCallback(this);
-        mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        Button captureButton = (Button) view.findViewById(R.id.button_capture);
-        captureButton.setOnClickListener(new View.OnClickListener() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+        } else {
+            startCamera();
+        }
+    }
+
+    private void startCamera() {
+        final CameraFragment cameraFragment = CameraFragment.newInstance(new Configuration.Builder()
+                .setCamera(Configuration.CAMERA_FACE_REAR)
+                .setFlashMode(Configuration.FLASH_MODE_AUTO)
+                .build());
+
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, cameraFragment, "FRAGMENT_TAG")
+                .commit();
+
+        cameraFragment.setStateListener(new CameraFragmentStateAdapter() {
             @Override
-            public void onClick(View v) {
-                mCamera.takePicture(null, null, mPictureCallback);
+            public void onCurrentCameraBack() {
+                Toast.makeText(getActivity(), "onCurrentCameraBack", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCurrentCameraFront() {
+                Toast.makeText(getActivity(), "onCurrentCameraFront", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFlashAuto() {
+                Toast.makeText(getActivity(), "onFlashAuto", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFlashOn() {
+                Toast.makeText(getActivity(), "onFlashOn", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFlashOff() {
+                Toast.makeText(getActivity(), "onFlashOff", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCameraSetupForPhoto() {
+                Toast.makeText(getActivity(), "onCameraSetupForPhoto", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCameraSetupForVideo() {
+                Toast.makeText(getActivity(), "onCameraSetupForVideo", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void shouldRotateControls(int degrees) {
+                Toast.makeText(getActivity(), "shouldRotateControls " + degrees, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRecordStateVideoReadyForRecord() {
+                Toast.makeText(getActivity(), "onRecordStateVideoReadyForRecord", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRecordStateVideoInProgress() {
+                Toast.makeText(getActivity(), "onRecordStateVideoInProgress", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRecordStatePhoto() {
+                Toast.makeText(getActivity(), "onRecordStatePhoto", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStopVideoRecord() {
+                Toast.makeText(getActivity(), "onStopVideoRecord", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartVideoRecord(File outputFile) {
+                Toast.makeText(getActivity(), "onStartVideoRecord " + outputFile, Toast.LENGTH_SHORT).show();
             }
         });
 
-        Button switchButton = (Button) view.findViewById(R.id.button_switch);
-        switchButton.setOnClickListener(new View.OnClickListener() {
+        cameraFragment.setResultListener(new CameraFragmentResultListener() {
             @Override
-            public void onClick(View v) {
-                mCamera.stopPreview();
-                mCamera.release();
+            public void onVideoRecorded(String filePath) {
+                Toast.makeText(getActivity(), "onVideoRecorded " + filePath, Toast.LENGTH_SHORT).show();
+            }
 
-                if (Camera.getNumberOfCameras() > 1) {
-                    if (mCamera == Camera.open(0)) {
-                        mCamera = Camera.open(1);
-                    } else {
-                        mCamera = Camera.open(0);
-                    }
-                } else {
-                    mCamera = Camera.open();
-                }
-
-                try {
-                    mCamera.setPreviewDisplay(mSurfaceHolder);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                mCamera.startPreview();
+            @Override
+            public void onPhotoTaken(byte[] bytes, String filePath) {
+                Toast.makeText(getActivity(), "onPhotoTaken " + filePath, Toast.LENGTH_SHORT).show();
             }
         });
 
-        return view;
+        cameraFragment.setVideoRecordedListener(new CameraFragmentVideoRecordedListener() {
+            @Override
+            public void onVideoRecorded(String filePath) {
+                Toast.makeText(getActivity(), "onVideoRecorded " + filePath, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        cameraFragment.setVideoRecordTextListener(new CameraFragmentVideoRecordTextListener() {
+            @Override
+            public String getTextRecord(int currentTime) {
+                return "REC " + currentTime;
+            }
+
+            @Override
+            public String getTextHint() {
+                return "HINT";
+            }
+        });
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        if (checkCameraHardware(getActivity())) {
-            mCamera = Camera.open();
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA_PERMISSION) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startCamera();
+            } else {
+                Toast.makeText(getActivity(), "Please grant camera permission to use the app", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(getActivity(), "No camera detected", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        if (mCamera != null) {
-            mCamera.release();
-            mCamera = null;
-        }
-    }
-
-    @Override
-    public void surfaceCreated(SurfaceHolder holder) {
-        try {
-            mCamera.setPreviewDisplay(holder);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        if (mPreviewRunning) {
-            mCamera.stopPreview();
-        }
-
-        Camera.Parameters p = mCamera.getParameters();
-        p.setPreviewSize(width, height);
-        mCamera.setParameters(p);
-
-        mCamera.startPreview();
-        mPreviewRunning = true;
-    }
-
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-        mCamera.stopPreview();
-        mPreviewRunning = false;
-    }
-
-    private Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
-        @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
-            Toast.makeText(getActivity(), "Picture saved", Toast.LENGTH_LONG).show();
-            mCamera.startPreview();
-        }
-    };
-
-    private boolean checkCameraHardware(Context context) {
-        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-            return true;
-        } else {
-            return false;
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
