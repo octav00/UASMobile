@@ -148,7 +148,7 @@ public class SettingsActivity extends AppCompatActivity
 //                        {
 //                            Toast.makeText(SettingsActivity.this, "Profile Image uploaded Successfully...", Toast.LENGTH_SHORT).show();
 //
-//                            final String downloaedUrl = task.getResult().getDownloadUrl().toString();
+//                            final String downloaZdUrl = task.getResult().getDownloadUrl().toString();
 //
 //                            RootRef.child("Users").child(currentUserID).child("image")
 //                                    .setValue(downloaedUrl)

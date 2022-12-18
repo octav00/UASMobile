@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.1.0'
     implementation "com.firebase:firebase-client-android:2.3.1"
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation("com.vanniktech:android-image-cropper:4.5.0")
     // This library is used for loading the
     // cropped image into ImageView.
     implementation 'com.squareup.picasso:picasso:2.71828'
