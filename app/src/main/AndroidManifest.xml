@@ -24,6 +24,13 @@
         android:theme="@style/Theme.UASMobile"
         tools:targetApi="31">
         <activity
+            android:name=".CameraActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>
@@ -32,30 +39,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".LoginActivity">
-        </activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".LoginActivity"></activity>
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".SettingsActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".GroupChatActivity" />
-        <activity android:name=".PhoneLoginActivity" />
-<!--        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"-->
-<!--            android:theme="@style/Base.Theme.AppCompat"/> &lt;!&ndash; optional (needed if default theme has no action bar) &ndash;&gt;-->
+        <activity android:name=".PhoneLoginActivity" /> <!-- <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" -->
+        <!-- android:theme="@style/Base.Theme.AppCompat"/> &lt;!&ndash; optional (needed if default theme has no action bar) &ndash;&gt; -->
         <!-- Theme is optional and only needed if default theme has no action bar. -->
         <activity
             android:name="com.canhub.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"
-            />
+            android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name=".FindFriendsActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".ChatActivity"
-            android:parentActivityName=".MainActivity"
-            ></activity>
+        <activity
+            android:name=".ChatActivity"
+            android:parentActivityName=".MainActivity" />
 
         <service
             android:name=".FirebaseMessageReceiver"
