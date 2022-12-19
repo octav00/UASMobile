@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity
 
     private void RequestNewGroup()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, androidx.appcompat.R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, androidx.appcompat.R.style.Base_ThemeOverlay_AppCompat_Dialog_Alert);
         builder.setTitle("Enter Group Name :");
 
         final EditText groupNameField = new EditText(MainActivity.this);
