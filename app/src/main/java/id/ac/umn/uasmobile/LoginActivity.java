@@ -65,15 +65,15 @@ public class LoginActivity extends AppCompatActivity
             }
         });
 
-        PhoneLoginButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent phoneLoginIntent = new Intent(LoginActivity.this, PhoneLoginActivity.class);
-                startActivity(phoneLoginIntent);
-            }
-        });
+//        PhoneLoginButton.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View view)
+//            {
+//                Intent phoneLoginIntent = new Intent(LoginActivity.this, PhoneLoginActivity.class);
+//                startActivity(phoneLoginIntent);
+//            }
+//        });
     }
 
     @Override
@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity
     private void InitializeFields()
     {
         LoginButton = (Button) findViewById(R.id.login_button);
-        PhoneLoginButton = (Button) findViewById(R.id.phone_login_button);
+//        PhoneLoginButton = (Button) findViewById(R.id.phone_login_button);
         UserEmail = (EditText) findViewById(R.id.login_email);
         UserPassword = (EditText) findViewById(R.id.login_password);
         NeedNewAccountLink = (TextView) findViewById(R.id.need_new_account_link);
