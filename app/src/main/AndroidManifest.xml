@@ -24,6 +24,13 @@
         android:theme="@style/Theme.UASMobile"
         tools:targetApi="31">
         <activity
+            android:name=".ImageViewerActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".CameraActivity"
             android:exported="false">
             <meta-data
@@ -39,8 +46,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".SettingsActivity"
@@ -60,6 +67,18 @@
             android:name=".ChatActivity"
             android:parentActivityName=".MainActivity" />
 
+        <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            android:authorities="${applicationId}.firebaseinitprovider"
+            android:exported="false"
+            android:initOrder="100" />
+
+        <service
+            android:name="com.google.firebase.components.ComponentDiscoveryService"
+            android:exported="false">
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar"/>
+        </service>
         <service
             android:name=".FirebaseMessageReceiver"
             android:exported="true">
