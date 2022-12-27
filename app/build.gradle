@@ -57,6 +57,10 @@ dependencies {
     // This library is used for loading the
     // cropped image into ImageView.
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation "com.android.support:appcompat-v7:"
+    implementation 'com.jakewharton:butterknife:7.0.1'
+    // Dependency on a local library module
+//    implementation project(':camerafragment')
     implementation 'com.google.firebase:firebase-appindexing:20.0.0'
     implementation 'com.google.firebase:firebase-inappmessaging-display:20.2.0'
     implementation 'com.google.firebase:firebase-messaging:23.1.1'
